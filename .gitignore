@@ -1,0 +1,5 @@
+dependencies
+build/stage3/c/imports
+*.so
+*.o
+*.out
