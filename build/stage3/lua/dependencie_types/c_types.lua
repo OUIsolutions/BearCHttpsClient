@@ -17,5 +17,8 @@
 ---@field split fun(content:string,target:string):string[]
 ---@field newStack fun():Stack
 
+---@type string[]
+argv = argv
+
 ---@type Clib
 clib = clib

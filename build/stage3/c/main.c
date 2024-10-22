@@ -6,7 +6,14 @@
 
 
 
-void add_callbacks(LuaCEmbed *main_obj){
+void add_callbacks(LuaCEmbed *main_obj,int argc,char *argv[]){
+
+    lua.globals.set_long(main_obj,"argc",argc);
+    LuaCEmbedTable *argv_table = lua.globals.new_table(main_obj,"argv");
+    for(int i = 0 ; i < argc;i++){
+        lua.tables.append_string(argv_table,argv[i]);
+    }
+
     LuaCEmbedTable *clib = lua.globals.new_table(main_obj,"clib");
     lua.tables.set_method(clib,"print",custom_print);
     lua.tables.set_method(clib,"exit",generate_exit);
@@ -22,7 +29,9 @@ void add_callbacks(LuaCEmbed *main_obj){
     lua.tables.set_method(clib,"newStack",create_newStack);
 
     LuaCEmbedTable *silverchain = lua.globals.new_table(main_obj,"silver_chain");
-    lua.tables.set_method(silverchain,"generate_code",lua_cembed_generate_code);
+    lua.tables.set_method(silverchain,"generate_code",lua_cembed_silver_chaingenerate_code_once);
+    lua.tables.set_method(silverchain,"watch",lua_cembed_silver_chaingenerate_code_watch);
+
 }
 
 
